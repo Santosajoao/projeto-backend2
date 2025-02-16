@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tickets Disponíveis</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        table { width: 80%; margin: 20px auto; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 10px; }
+        th { background-color: #007BFF; color: white; }
+        .btn { background-color: #007BFF; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; }
+        .btn:hover { background-color: #0056b3; }
+        .btn-delete { background-color: #FF4B4B; color: white; padding: 5px 10px; text-decoration: none; border-radius: 5px; }
+        .btn-delete:hover { background-color: #ff0000; }
+        .btn-update { background-color: #FFA500; color: white; padding: 5px 10px; text-decoration: none; border-radius: 5px; }
+        .btn-update:hover { background-color: #e68900; }
+        .btn-logout { background-color: #007BFF; color: white; padding: 5px 10px; text-decoration: none; border-radius: 5px; }
+        .btn-logout:hover { background-color: #007BFF; }
+    </style>
+</head>
+<body>
+    <h2>Meus tickets</h2>
+    
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Preço</th>
+        </tr>
+        {{#userTickets}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{name}}</td>
+            <td>R$ {{price}}</td>
+        </tr>
+        {{/userTickets}} 
+    </table>
+    
+    <a href="/tickets" class="btn-logout">Voltar</a>
+</body>
+</html>
