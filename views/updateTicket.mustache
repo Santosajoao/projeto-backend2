@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Ticket</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        form { max-width: 500px; margin: 0 auto; padding: 20px; background: #fff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+        input, button { width: 100%; padding: 10px 0; margin: 10px 0; }
+        button { background-color: #007BFF; color: white; border: none; }
+        button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <h2>Editar Ticket</h2>
+
+    
+    <form action="/tickets/updateTicket" method="POST">
+        <label for="id">Id do ticket:</label>
+        <input type="number" id="id" name="id" required ">
+
+        <label for="name">Nome:</label>
+        <input type="text" id="name" name="name" required ">
+
+        <label for="price">Preço:</label>
+        <input type="number" id="price" name="price" required ">
+
+        <button type="submit">Atualizar</button>
+    </form>
+
+    <a href="/tickets">Voltar</a>
+</body>
+</html>
