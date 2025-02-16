@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tickets Disponíveis</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        table { width: 80%; margin: 20px auto; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 10px; }
+        th { background-color: #007BFF; color: white; }
+        .btn { background-color: #007BFF; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; }
+        .btn:hover { background-color: #0056b3; }
+        .btn-delete { background-color: #FF4B4B; color: white; padding: 5px 10px; text-decoration: none; border-radius: 5px; }
+        .btn-delete:hover { background-color: #ff0000; }
+        .btn-update { background-color: #FFA500; color: white; padding: 5px 10px; text-decoration: none; border-radius: 5px; }
+        .btn-update:hover { background-color: #e68900; }
+        .btn-logout { background-color: #FF4B4B; color: white; padding: 5px 10px; text-decoration: none; border-radius: 5px; }
+        .btn-logout:hover { background-color: #ff0000; }
+    </style>
+</head>
+<body>
+    <h2>Tickets Disponíveis</h2>
+   
+    {{#isAdm}} 
+        <a href="/tickets/registerTicket" class="btn">Cadastrar Novo Ticket</a>
+    {{/isAdm}} 
+   
+    {{#isAdm}} 
+        <a href="/tickets/history" class="btn">Ver tickets comprados na plataforma</a>
+    {{/isAdm}} 
+
+    {{^isAdm}} 
+    <a href="/tickets/userTickets" class="btn">Ver meus tickets </a>
+    {{/isAdm}} 
+
+    
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Preço</th>
+            <th>Ação</th>
+        </tr>
+        {{#tickets}} 
+        <tr>
+            <td>{{id}}</td>
+            <td>{{name}}</td>
+            <td>R$ {{price}}</td>
+            <td>
+                <a href="/tickets/buyTicket" class="btn">Comprar</a>
+                {{#isAdm}} 
+                    <a href="/tickets/updateTicket/{{id}}" class="btn-update">Atualizar</a> 
+                    <button class="btn-delete" onclick="deleteTicket({{id}})">Excluir</button> 
+                {{/isAdm}} 
+            </td>
+        </tr>
+        {{/tickets}} 
+    </table>
+    
+    <a href="/users/logout" class="btn-logout">Logout</a> 
+     
+
+    <script>
+        async function deleteTicket(ticketId) {
+            // Confirmação antes de deletar
+            if (confirm("Tem certeza que deseja excluir este ticket?")) {
+                const token = localStorage.getItem('token');  // Pega o token do localStorage
+                
+                const response = await fetch(`/tickets/deleteTicket/${ticketId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    alert('Ticket excluído com sucesso!');
+                    location.reload();  // Recarrega a página para refletir a exclusão
+                } else {
+                    alert('Erro ao excluir o ticket.');
+                }
+            }
+        }
+    </script>
+</body>
+</html>
